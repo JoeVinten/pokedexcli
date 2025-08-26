@@ -14,6 +14,20 @@ func (c *Client) ListLocations(pageUrl *string) (PokemonLocations, error) {
 		url = *pageUrl
 	}
 
+	val, cacheHit := c.cache.Get(url)
+
+	if cacheHit {
+		// cache hit
+		cachedLocations := PokemonLocations{}
+
+		err := json.Unmarshal(val, &cachedLocations)
+
+		if err != nil {
+			return PokemonLocations{}, err
+		}
+		return cachedLocations, nil
+	}
+
 	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
@@ -33,6 +47,10 @@ func (c *Client) ListLocations(pageUrl *string) (PokemonLocations, error) {
 	if err != nil {
 		return PokemonLocations{}, err
 
+	}
+
+	if !cacheHit {
+		c.cache.Add(url, body)
 	}
 
 	locations := PokemonLocations{}
