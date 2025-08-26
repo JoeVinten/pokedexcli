@@ -61,8 +61,20 @@ func startRepl(cfg *config) {
 		},
 		"catch": {
 			name:        "catch",
-			description: "Catch pokemon to add them to your pokedex",
+			description: "Catch pokemon to add them to your Pokedex",
 			callback:    commandCatch,
+			config:      &config{},
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "Inspect the pokemon in your Pokedex",
+			callback:    commandInspect,
+			config:      &config{},
+		},
+		"pokedex": {
+			name:        "pokedex",
+			description: "See your whole Pokedex",
+			callback:    commandPokedex,
 			config:      &config{},
 		},
 	}
