@@ -48,7 +48,7 @@ func startRepl(cfg *config) {
 			config:      &config{},
 		},
 		"mapb": {
-			name:        "map",
+			name:        "mapb",
 			description: "Get the previous 20 locations",
 			callback:    commandMapb,
 			config:      &config{},
